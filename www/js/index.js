@@ -33,8 +33,9 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        alert('onDeviceReady has been recieved.');
-	app.receivedEvent('deviceready');
+        app.receivedEvent('deviceready');
+        app.checkConnection();
+        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError, {enableHighAccuracy: true, timeout: 20000 });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -44,7 +45,39 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+    },
+    checkConnection: function() {
+        var networkState = navigator.connection.type;
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.CELL]     = 'Cell generic connection';
+        states[Connection.NONE]     = 'No network connection';
+        
+        elem = document.getElementById('connectionInfo');
+        elem.innerHTML = 'Connection type: ' + states[networkState];
+    },
+    onSuccess: function(position) {
+        elem = document.getElementById('locationInfo');
+        elem.innerHTML = ('Latitude: '          + position.coords.latitude          + '\n' +
+              'Longitude: '         + position.coords.longitude         + '\n' +
+              'Altitude: '          + position.coords.altitude          + '\n' +
+              'Accuracy: '          + position.coords.accuracy          + '\n' +
+              'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+              'Heading: '           + position.coords.heading           + '\n' +
+              'Speed: '             + position.coords.speed             + '\n' +
+              'Timestamp: '         + position.timestamp                + '\n');
+    },
+    
+    // onError Callback receives a PositionError object
+    //
+    onError: function(error) {
+        elem = document.getElementById('locationInfo');
+        elem.innerHTML = ('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
     }
 };
