@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+           id="org.apache.cordova.core.network-information"
+      version="0.1.0">
+
+    <name>Network Information</name>
+    <description>Cordova Network Information Plugin</description>
+    <license>Apache</license>
+    <keywords>cordova,network,information</keywords>
+    
+    <js-module src="www/network.js" name="network">
+        <clobbers target="navigator.connection" />
+        <clobbers target="navigator.network.connection" />
+    </js-module>
+
+    <js-module src="www/Connection.js" name="Connection">
+        <clobbers target="Connection" />
+    </js-module>
+                
+    <!-- firefoxos --> 
+    <platform name="firefoxos">
+        <config-file target="config.xml" parent="/*">
+            <param name="firefox-package" value="Network" />
+        </config-file>                                      
+        
+        <source-file src="src/firefoxos/network.js" target-dir="src/firefoxos" />
+    </platform>
+            
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="NetworkStatus">
+                <param name="android-package" value="org.apache.cordova.core.NetworkManager"/>
+            </feature>   
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        </config-file>
+
+        <source-file src="src/android/NetworkManager.java" target-dir="src/org/apache/cordova/core" />
+        
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="NetworkStatus">
+                <param name="ios-package" value="CDVConnection" /> 
+            </feature>
+        </config-file>
+        
+        <header-file src="src/ios/CDVConnection.h" />
+        <source-file src="src/ios/CDVConnection.m" />
+        <header-file src="src/ios/CDVReachability.h" />
+	    <source-file src="src/ios/CDVReachability.m" />
+	    <framework src="SystemConfiguration.framework" weak="true" />
+    </platform>
+
+    <!-- blackberry10 -->
+    <platform name="blackberry10">
+        <source-file src="src/blackberry10/index.js" target-dir="NetworkStatus" />
+        <config-file target="www/config.xml" parent="/widget">
+            <feature name="NetworkStatus" value="NetworkStatus"/>
+        </config-file>
+    </platform>
+
+    <!-- wp7 -->
+    <platform name="wp7">
+        <config-file target="config.xml" parent="/*">
+            <feature name="NetworkStatus">
+                <param name="wp-package" value="NetworkStatus"/>
+            </feature>
+        </config-file>
+
+        <config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
+            <Capability Name="ID_CAP_NETWORKING" />
+        </config-file>
+
+        <source-file src="src/wp/NetworkStatus.cs" />
+    </platform>
+
+    <!-- wp8 -->
+    <platform name="wp8">
+        <config-file target="config.xml" parent="/*">
+            <feature name="NetworkStatus">
+                <param name="wp-package" value="NetworkStatus"/>
+            </feature>
+        </config-file>
+
+        <config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
+            <Capability Name="ID_CAP_NETWORKING" />
+        </config-file>
+
+        <source-file src="src/wp/NetworkStatus.cs" />
+    </platform>
+
+    <!-- windows8 -->
+    <platform name="windows8">
+        <js-module src="src/windows8/NetworkInfoProxy.js" name="NetworkInfoProxy">
+            <merges target="" />
+        </js-module>
+    </platform>
+
+</plugin>
