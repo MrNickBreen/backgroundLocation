@@ -17,14 +17,20 @@
  * under the License.
  */
 var app = {
+    userId: 0,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        app.initUserId();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+    initUserId: function() {
+        var permanentStorage = window.localStorage;
+        this.userId = permanentStorage.getItem("userId");
+        if (this.userId === null) {
+            permanentStorage.setItem("userId", Math.floor((Math.random()*100000)));
+            this.userId = permanentStorage.getItem("userId");
+        }
+    },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
@@ -36,6 +42,8 @@ var app = {
         app.receivedEvent('deviceready');
         app.checkConnection();
         navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError, {enableHighAccuracy: true, timeout: 20000 });
+        alert('about to submit to server');
+        app.submitToServer();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -62,19 +70,13 @@ var app = {
         elem.innerHTML = 'Connection type: ' + states[networkState];
     },
     onSuccess: function(position) {
+        app.position = position;
         elem = document.getElementById('locationInfo');
-        elem.innerHTML = ('Latitude: '          + position.coords.latitude          + '\n' +
+        elem.innerHTML = ('Latitude: '   + position.coords.latitude  + '\n' +
               'Longitude: '         + position.coords.longitude         + '\n' +
-              'Altitude: '          + position.coords.altitude          + '\n' +
-              'Accuracy: '          + position.coords.accuracy          + '\n' +
-              'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-              'Heading: '           + position.coords.heading           + '\n' +
-              'Speed: '             + position.coords.speed             + '\n' +
+              'Accuracy: '          + position.coords.accuracy          + '\n' +'Heading: '           + position.coords.heading           + '\n' +
               'Timestamp: '         + position.timestamp                + '\n');
     },
-    
-    // onError Callback receives a PositionError object
-    //
     onError: function(error) {
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('code: '    + error.code    + '\n' +
