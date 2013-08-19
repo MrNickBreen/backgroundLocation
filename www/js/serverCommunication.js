@@ -17,11 +17,11 @@ app.submitToServer =  function() {
            timeout: 10000,
            success:function(response){
             serverResponse = document.getElementById('serverResponse');
-            serverResponse.innerHTML = response;
+            serverResponse.innerHTML = "Sucess Response from server: " + response;
            },
            error: function(request, errorType, errorMessage) {
             serverError = document.getElementById('serverResponse');
-           serverError.innerHTML = response;
+           serverError.innerHTML = "Error Response from server: " + response;
            },
            complete: function() {
             setInterval(app.submitToServer, 1000*30);
