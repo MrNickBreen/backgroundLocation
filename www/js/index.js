@@ -17,14 +17,20 @@
  * under the License.
  */
 var app = {
+    userId: 0,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        app.initUserId();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+    initUserId: function() {
+        var permanentStorage = window.localStorage;
+        this.userId = permanentStorage.getItem("userId");
+        if (this.userId === null) {
+            permanentStorage.setItem("userId", Math.floor((Math.random()*100000)));
+            this.userId = permanentStorage.getItem("userId");
+        }
+    },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
@@ -70,9 +76,6 @@ var app = {
               'Accuracy: '          + position.coords.accuracy          + '\n' +'Heading: '           + position.coords.heading           + '\n' +
               'Timestamp: '         + position.timestamp                + '\n');
     },
-    
-    // onError Callback receives a PositionError object
-    //
     onError: function(error) {
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('code: '    + error.code    + '\n' +
