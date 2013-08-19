@@ -17,18 +17,18 @@
  * under the License.
  */
 var app = {
-    userId: 0,
+    deviceId: 0,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        app.initUserId();
+        this.initUserId();
     },
     initUserId: function() {
         var permanentStorage = window.localStorage;
-        this.userId = permanentStorage.getItem("userId");
-        if (this.userId === null) {
-            permanentStorage.setItem("userId", Math.floor((Math.random()*100000)));
-            this.userId = permanentStorage.getItem("userId");
+        this.deviceId = permanentStorage.getItem("deviceId");
+        if (this.deviceId === null) {
+            permanentStorage.setItem("deviceId", Math.floor((Math.random()*100000)));
+            this.deviceId = permanentStorage.getItem("deviceId");
         }
     },
     bindEvents: function() {
@@ -41,8 +41,8 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         app.checkConnection();
-        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError, {enableHighAccuracy: true, timeout: 20000 });
-        app.submitToServer();
+        // TODO: change timeout to be longer than one minute
+        navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -70,15 +70,19 @@ var app = {
     },
     onSuccess: function(position) {
         app.position = position;
+        app.submitToServer();
+        
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('Latitude: '   + position.coords.latitude  + '\n' +
               'Longitude: '         + position.coords.longitude         + '\n' +
               'Accuracy: '          + position.coords.accuracy          + '\n' +'Heading: '           + position.coords.heading           + '\n' +
               'Timestamp: '         + position.timestamp                + '\n');
+
+        
     },
     onError: function(error) {
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
+              'message: ' + error.message + '\n' + 'Timestamp:' Date.now());
     }
 };
