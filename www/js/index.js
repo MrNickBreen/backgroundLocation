@@ -83,6 +83,6 @@ var app = {
     onError: function(error) {
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n' + 'Timestamp:' Date.now());
+              'message: ' + error.message + '\n');
     }
 };
