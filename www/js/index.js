@@ -36,6 +36,7 @@ var app = {
         app.receivedEvent('deviceready');
         app.checkConnection();
         navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError, {enableHighAccuracy: true, timeout: 20000 });
+        submitToServer();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -62,14 +63,11 @@ var app = {
         elem.innerHTML = 'Connection type: ' + states[networkState];
     },
     onSuccess: function(position) {
+        app.position = position;
         elem = document.getElementById('locationInfo');
-        elem.innerHTML = ('Latitude: '          + position.coords.latitude          + '\n' +
+        elem.innerHTML = ('Latitude: '   + position.coords.latitude  + '\n' +
               'Longitude: '         + position.coords.longitude         + '\n' +
-              'Altitude: '          + position.coords.altitude          + '\n' +
-              'Accuracy: '          + position.coords.accuracy          + '\n' +
-              'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-              'Heading: '           + position.coords.heading           + '\n' +
-              'Speed: '             + position.coords.speed             + '\n' +
+              'Accuracy: '          + position.coords.accuracy          + '\n' +'Heading: '           + position.coords.heading           + '\n' +
               'Timestamp: '         + position.timestamp                + '\n');
     },
     
