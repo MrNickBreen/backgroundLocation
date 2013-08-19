@@ -4,7 +4,7 @@ function submitToServer() {
            contentType:'application/json',
            data: {
                "twitterHandle": twitterHandle,
-               "uid": 3,
+               "uid": app.userId,
                "position": {
                    "lat":app.position.coords.latitude,
                    "lng":app.position.coords.longitude,
