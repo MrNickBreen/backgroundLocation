@@ -41,7 +41,8 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         app.checkConnection();
-        navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError, {enableHighAccuracy: true, timeout: 20000 });
+        // TODO: change timeout to be longer than one minute
+        navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -82,6 +83,6 @@ var app = {
     onError: function(error) {
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
+              'message: ' + error.message + '\n' + 'Timestamp:' Date.now());
     }
 };
