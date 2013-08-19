@@ -1,4 +1,5 @@
-function submitToServer() {
+app.submitToServer =  function() {
+    alert('submit to server');
     var twitterHandle = document.getElementById('twitterHandle').value;
 	$.ajax("http://www.ottawasheart.com/server/update.php", {
            contentType:'application/json',
@@ -20,4 +21,4 @@ function submitToServer() {
             alert('error!: '+errorMessage+' and error type:'+errorType+' and request:'+request);
            }
     });
-}
+};

@@ -49,8 +49,9 @@
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="js/serverCommunication.js"></script>
+        <!-- note: index.js must be first because it initializes app object literal -->
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/serverCommunication.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
