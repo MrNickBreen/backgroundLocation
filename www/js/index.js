@@ -42,7 +42,6 @@ var app = {
         app.receivedEvent('deviceready');
         app.checkConnection();
         navigator.geolocation.getCurrentPosition(app.onSuccess, app.onError, {enableHighAccuracy: true, timeout: 20000 });
-        alert('about to submit to server');
         app.submitToServer();
     },
     // Update DOM on a Received Event

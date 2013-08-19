@@ -1,6 +1,6 @@
 app.submitToServer =  function() {
-    alert('submit to server');
     var twitterHandle = document.getElementById('twitterHandle').value;
+    // TODO: confirm our position is set, if not, delay and check again
 	$.ajax("http://www.ottawasheart.com/server/update.php", {
            contentType:'application/json',
            data: {
@@ -15,10 +15,16 @@ app.submitToServer =  function() {
            },
            timeout: 2000,
            success:function(response){
-            alert('got success from server, response:' +response);
+            serverResponse = document.getElementById('serverResponse');
+            serverResponse.innerHTML = response;
            },
            error: function(request, errorType, errorMessage) {
-            alert('error!: '+errorMessage+' and error type:'+errorType+' and request:'+request);
+            serverError = document.getElementById('serverResponse');
+            serverError.innerHTML = response;
+           
+           },
+           complete: function() {
+            setInterval(app.submitToServer, 1000*30);
            }
     });
 };
