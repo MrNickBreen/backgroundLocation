@@ -25,11 +25,11 @@ app.submitToServer =  function() {
 					document.getElementById("numUsersContainer").style.display = "block";
 				}
 				var serverResponse = document.getElementById('serverResponse');
-				serverResponse.innerHTML = "Sucess Response from server: " + response;
+				serverResponse.innerHTML = responseObj.message;
            },
            error: function(request, errorType, errorMessage) {
             var serverError = document.getElementById('serverResponse');
-			serverError.innerHTML = "Error Response from server: " + errorMessage;
+			serverError.innerHTML = "Error: " + errorMessage;
            }
     });
 };
