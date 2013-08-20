@@ -19,16 +19,17 @@ app.submitToServer =  function() {
            },
            timeout: 10000,
            success:function(response){
-           // TODO: write logic if this account is an advanced account, than unhide the numUsersContainer so they can change their map icon.
-           if (false) {
-            document.getElementById("numUsersContainer").style.display = "block";
-           }
-            var serverResponse = document.getElementById('serverResponse');
-            serverResponse.innerHTML = "Sucess Response from server: " + response;
+				var responseObj =  jQuery.parseJSON(response );
+		 
+			   if (responseObj.advanced>0) {	
+					document.getElementById("numUsersContainer").style.display = "block";
+				}
+				var serverResponse = document.getElementById('serverResponse');
+				serverResponse.innerHTML = "Sucess Response from server: " + response;
            },
            error: function(request, errorType, errorMessage) {
             var serverError = document.getElementById('serverResponse');
-           serverError.innerHTML = "Error Response from server: " + errorMessage;
+			serverError.innerHTML = "Error Response from server: " + errorMessage;
            }
     });
 };
