@@ -20,6 +20,8 @@ var app = {
     deviceId: 0,
 	passcode:0,
     GPSWatchId: null,
+	timeLastSubmit:0,
+	
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -107,7 +109,6 @@ var app = {
         elem.innerHTML = ('Latitude: '   + position.coords.latitude.toFixed(3)  + '<br/>' +
               'Longitude: '         + position.coords.longitude.toFixed(3)         + '<br/>' +
               'Last Update: '         + hours + ':' + position.timestamp.getMinutes() +':'+ position.timestamp.getSeconds()+ ' ' + ampm);
-
     },
     onError: function(error) {
         elem = document.getElementById('locationInfo');
