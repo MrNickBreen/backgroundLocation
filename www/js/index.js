@@ -18,11 +18,13 @@
  */
 var app = {
     deviceId: 0,
+	passcode:0,
     GPSWatchId: null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
         this.initUserId();
+		this.initPasscode();
     },
     initUserId: function() {
         var permanentStorage = window.localStorage;
@@ -31,7 +33,18 @@ var app = {
             permanentStorage.setItem("deviceId", Math.floor((Math.random()*100000)));
             this.deviceId = permanentStorage.getItem("deviceId");
         }
-		//TODO something like save passcode when set, load passcode on next open, set txt boxuserPasscode.setValue(this.deviceId);
+    },
+	initPasscode: function() {
+        var permanentStorage = window.localStorage;
+        this.passcode = permanentStorage.getItem("passcode");
+		var passcodeText='';
+        if (this.passcode === null) {
+            passcodeText ='';
+        }
+		else{
+			passcodeText = this.passcode;
+		}
+		$('#userPasscode').val(passcodeText);
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -106,3 +119,8 @@ var app = {
               'message: ' + error.message + '\n');
     }
 };
+
+$("#userPasscode").focusout(function () {
+	 var permanentStorage = window.localStorage;
+     permanentStorage.setItem("passcode", $("#userPasscode").val());
+});
