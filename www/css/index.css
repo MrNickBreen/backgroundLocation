@@ -124,3 +124,26 @@ h1 {
 #numUsersContainer {
     display:none;
 }
+
+#locationToggleContainer .ui-checkbox {
+clear:none;
+}
+
+#locationToggleContainer label {
+float:left;
+padding:10px 10px 0px 0px;
+}
+
+.ui-checkbox #locationToggle {
+    width:30px;
+    height:30px;
+    margin-top:1px;
+    top:5;
+    left:0;
+    float:left;
+    position:relative;
+}
+
+#app #statusPage, #app #privacyPage {
+text-align:center;
+}

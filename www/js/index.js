@@ -23,8 +23,14 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        this.initFastClick();
         this.initUserId();
 		this.initPasscode();
+    },
+    initFastClick: function () {
+        window.addEventListener('load', function() {
+                                FastClick.attach(document.body);
+                                }, false);
     },
     initUserId: function() {
         var permanentStorage = window.localStorage;
@@ -106,22 +112,21 @@ var app = {
         app.submitToServer();
         
         elem = document.getElementById('locationInfo');
-        elem.innerHTML = ('Latitude: '   + position.coords.latitude  + '\n' +
-              'Longitude: '         + position.coords.longitude         + '\n' +
-              'Accuracy: '          + position.coords.accuracy          + '\n' +'Heading: '           + position.coords.heading           + '\n' +
-              'Timestamp: '         + position.timestamp                + '\n');
+        elem.innerHTML = ('Latitude: '   + position.coords.latitude.toFixed(3)  + '<br/>' +
+              'Longitude: '         + position.coords.longitude.toFixed(3)         + '<br/>' +
+              'Timestamp: '         + position.timestamp.getHours() + ':' + position.timestamp.getMinutes() +':'+ position.timestamp.getSeconds());
 
         
     },
     onError: function(error) {
         elem = document.getElementById('locationInfo');
-        elem.innerHTML = ('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
+        elem.innerHTML = ('There is an error with the GPS.');
+        console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
     }
 };
 
 $("#userPasscode").focusout(function () {
-	 var permanentStorage = window.localStorage;
+     var permanentStorage = window.localStorage;
      permanentStorage.setItem("passcode", $("#userPasscode").val());
 });
 
