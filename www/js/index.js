@@ -30,6 +30,7 @@ var app = {
             permanentStorage.setItem("deviceId", Math.floor((Math.random()*100000)));
             this.deviceId = permanentStorage.getItem("deviceId");
         }
+		//TODO something like save passcode when set, load passcode on next open, set txt boxuserPasscode.setValue(this.deviceId);
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
