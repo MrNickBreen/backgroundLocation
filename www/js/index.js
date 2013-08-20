@@ -18,6 +18,7 @@
  */
 var app = {
     deviceId: 0,
+    GPSWatchId: null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -42,8 +43,26 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         app.checkConnection();
+        app.initGPSToggleListener();
+        app.startGPS();
+    },
+    initGPSToggleListener: function() {
+        $('#locationToggle').click(function ()
+         {
+             if (this.checked) {
+                app.startGPS();
+             }
+             else {
+                app.stopGPS();
+             }
+         });
+    },
+    startGPS: function() {
         // TODO: change timeout to be longer than one minute
-        navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 });
+        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 });
+    },
+    stopGPS: function() {
+        navigator.geolocation.clearWatch(app.GPSWatchId);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
