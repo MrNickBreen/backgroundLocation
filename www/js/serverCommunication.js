@@ -1,18 +1,18 @@
 app.submitToServer =  function() {
     var userPasscode = document.getElementById('userPasscode').value;
-    $.ajax("http://www.ottawasheart.com/server/update.php", {
+    $.ajax("http://www.smewebsites.com/nuitblanche/submit.php", {
            contentType:"application/json",
-           type:"POST",
+           type:"GET",
            data: {
                "passcode": userPasscode,
                "deviceId": app.deviceId,
-               "marker": {
+               "marker": JSON.stringify({
                    "numOfUsers":1,
                    "lat":app.position.coords.latitude,
                    "lng":app.position.coords.longitude,
                    "accuracy":app.position.coords.accuracy,
                    "heading":app.position.coords.heading
-                }
+                })
            },
            timeout: 10000,
            success:function(response){
@@ -21,7 +21,7 @@ app.submitToServer =  function() {
            },
            error: function(request, errorType, errorMessage) {
             serverError = document.getElementById('serverResponse');
-           serverError.innerHTML = "Error Response from server: " + response;
+           serverError.innerHTML = "Error Response from server: " + errorMessage;
            },
            complete: function() {
             setInterval(app.submitToServer, 1000*30);
