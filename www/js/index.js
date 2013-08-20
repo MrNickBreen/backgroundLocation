@@ -55,12 +55,8 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
+    // The scope of 'this' is the event.
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
         app.checkConnection();
         app.initGPSToggleListener();
         app.startGPS();
@@ -83,15 +79,6 @@ var app = {
     stopGPS: function() {
         navigator.geolocation.clearWatch(app.GPSWatchId);
     },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-    },
     checkConnection: function() {
         var networkState = navigator.connection.type;
         var states = {};
@@ -112,11 +99,15 @@ var app = {
         app.submitToServer();
         
         elem = document.getElementById('locationInfo');
+        var hours = position.timestamp.getHours();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        
         elem.innerHTML = ('Latitude: '   + position.coords.latitude.toFixed(3)  + '<br/>' +
               'Longitude: '         + position.coords.longitude.toFixed(3)         + '<br/>' +
-              'Timestamp: '         + position.timestamp.getHours() + ':' + position.timestamp.getMinutes() +':'+ position.timestamp.getSeconds());
+              'Last Update: '         + hours + ':' + position.timestamp.getMinutes() +':'+ position.timestamp.getSeconds()+ ' ' + ampm);
 
-        
     },
     onError: function(error) {
         elem = document.getElementById('locationInfo');
