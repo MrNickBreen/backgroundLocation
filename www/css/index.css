@@ -97,6 +97,13 @@ h1 {
     display:none;
 }
 
+.content_div {
+    display: none;
+}
+.content_div:first-child {
+    display: block;
+}
+
 @keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }

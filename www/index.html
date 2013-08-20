@@ -19,43 +19,73 @@
 -->
 <html>
     <head>
+		<title>Nuit Blanche</title>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Nuit Blanche</title>
+		<link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.3.2.min.css">
     </head>
-    <body>
-        <div class="app">
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-            <div id="userPasscodeContainer">
-                <label>User Passcode:</label>
-                <input type="text" id="userPasscode" placeholder="123"/>
-            </div>
-            <div id="numUsersContainer">
-                <label>Number of people in your group:</label>
-                <input type="text" id="numOfUsers" placeholder="1"/>
-            </div>
-            <div id="locationToggleContainer">
-                <label>Use GPS:</label>
-                <input type="checkbox" id="locationToggle" checked="checked"/>
-            </div>
-            <hr />
-            <div id="connectionInfo">
-            </div>
-            <hr />
-            <div id="locationInfo">
-            </div>
-            <hr />
-            <div id="serverResponse">
-            </div>
-            
-        </div>
+    <body>		
+	<div id="app">
+		<div  id="statusPage" class="content_div">			
+			<div data-role="content" >	
+				<img src="img/logo.png" />
+				<div id="deviceready" class="blink">
+					<p class="event listening">Connecting to Device</p>
+					<p class="event received">Device is Ready</p>
+				</div>							
+				<hr />
+				<div id="connectionInfo">
+				</div>
+				<hr />
+				<div id="locationInfo">
+				</div>
+				<hr />
+				<div id="serverResponse">
+				</div>
+			</div>
+		</div><!-- /page  -->
+
+
+		<div  id="settingsPage" class="content_div">
+			<div data-role="content" >	
+				<div id="userPasscodeContainer">
+					<label>User Passcode:</label>
+					<input type="text" id="userPasscode" placeholder="123"/>
+				</div>
+				<div id="numUsersContainer">
+					<label>Number of people in your group:</label>
+					<input type="text" id="numOfUsers" placeholder="1"/>
+				</div>
+				<div id="locationToggleContainer">
+					<label>Use GPS:</label>
+					<input type="checkbox" id="locationToggle" checked="checked"/>
+				</div>						
+			</div><!-- /content -->
+		</div><!-- /page  -->
+
+		<div id="privacyPage" class="content_div">
+			<div data-role="content" >
+					<h1>Privacy Policy</h1>
+					<p>This app collects and transmits your position for the purpose of the Nuit Blanche 2013 art installation. It will continue to run in the background unless you turn off the GPS toggle.</p>
+					<p>Your position is sent with a unique id, but no other identifying information. Your data is used solely for the Nuit Blanche Art installation and will not be resold or distributed to any third parties.</p>
+				</div><!-- /content -->
+		</div><!-- /page  -->
+			</div>
+<div data-role="footer" data-id="foo1" data-position="fixed">
+	<div data-role="navbar">
+		<ul>			
+			<li><a href="#" data-href="statusPage">Status</a></li>
+			<li><a href="#" data-href="settingsPage">Settings</a></li>
+			<li><a href="#" data-href="privacyPage">Privacy</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->		
+			
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+		<script src="js/jquery.mobile-1.3.2.min.js"></script>
         <!-- note: index.js must be first because it initializes app object literal -->
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/serverCommunication.js"></script>

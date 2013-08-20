@@ -124,3 +124,9 @@ $("#userPasscode").focusout(function () {
 	 var permanentStorage = window.localStorage;
      permanentStorage.setItem("passcode", $("#userPasscode").val());
 });
+
+$(document).delegate('.ui-navbar a', 'click', function () {
+    $(this).addClass('ui-btn-active');
+    $('.content_div').hide();
+    $('#' + $(this).attr('data-href')).show();
+});
