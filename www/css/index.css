@@ -147,3 +147,15 @@ padding:10px 10px 0px 0px;
 #app #statusPage, #app #privacyPage {
 text-align:center;
 }
+
+#app, .ui-page {
+background:#fff !important;
+}
+
+#app {
+font-size:20px;
+}
+
+#userPasscodeContainer, #numUsersContainer {
+margin-bottom:60px;
+}
