@@ -1,5 +1,8 @@
 app.submitToServer =  function() {
     var userPasscode = document.getElementById('userPasscode').value;
+    var numOfUsers = document.getElementById('numOfUsers').value;
+    numOfUsers = (numOfUsers == "") ? 1 : numOfUsers;
+    
     $.ajax("http://www.smewebsites.com/nuitblanche/submit.php", {
            contentType:"application/json",
            type:"GET",
@@ -7,7 +10,7 @@ app.submitToServer =  function() {
                "passcode": userPasscode,
                "deviceId": app.deviceId,
                "marker": JSON.stringify({
-                   "numOfUsers":1,
+                   "numOfUsers":numOfUsers,
                    "lat":app.position.coords.latitude,
                    "lng":app.position.coords.longitude,
                    "accuracy":app.position.coords.accuracy,
@@ -16,15 +19,16 @@ app.submitToServer =  function() {
            },
            timeout: 10000,
            success:function(response){
-            serverResponse = document.getElementById('serverResponse');
+           // TODO: write logic if this account is an advanced account, than unhide the numUsersContainer so they can change their map icon.
+           if (false) {
+            document.getElementById("numUsersContainer").style.display = "block";
+           }
+            var serverResponse = document.getElementById('serverResponse');
             serverResponse.innerHTML = "Sucess Response from server: " + response;
            },
            error: function(request, errorType, errorMessage) {
-            serverError = document.getElementById('serverResponse');
+            var serverError = document.getElementById('serverResponse');
            serverError.innerHTML = "Error Response from server: " + errorMessage;
-           },
-           complete: function() {
-            setInterval(app.submitToServer, 1000*30);
            }
     });
 };
