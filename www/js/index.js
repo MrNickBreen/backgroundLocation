@@ -59,7 +59,7 @@ var app = {
     },
     startGPS: function() {
         // TODO: change timeout to be longer than one minute
-        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 });
+        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 , maximumAge: 3*1000 });
     },
     stopGPS: function() {
         navigator.geolocation.clearWatch(app.GPSWatchId);
