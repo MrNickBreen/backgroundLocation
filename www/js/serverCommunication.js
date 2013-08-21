@@ -33,12 +33,12 @@ app.submitToServer =  function() {
 			   },
 			   error: function(request, errorType, errorMessage) {
 				var serverError = document.getElementById('serverResponse');
-				serverError.innerHTML = ""+app.getReadableTime( new Date()) +"Error: " + errorMessage;
+				serverError.innerHTML = "Error: " + errorMessage+" :"+app.getReadableTime( new Date());
 			   }
 		});
 	}
 	else{
-					var serverError = document.getElementById('serverResponse');
-				serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date()) ;
+		var serverError = document.getElementById('serverResponse');
+		serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date()) ;
 	}
 };
