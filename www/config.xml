@@ -51,10 +51,10 @@
     <gap:splash gap:platform="ios" height="1004" src="res/screen/ios/screen-ipad-portrait.png" width="768" /> <!-- used to be height 1024, but 1004 is actual requirment -->
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
 
-	<gap:splash src="res/screen/ios/splash-640x1136.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
+	<gap:splash src="res/screen/ios/splash-iphone5.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
 	<!-- Retina iPads: Requires PhoneGap 2.5.0 or higher -->
-	<!--<gap:splash src="res/screen/ios/splash-1536x2008.png" gap:platform="ios" width="1536" height="2008" /><!-- Portrait -->
-	<!--<gap:splash src="res/screen/ios/splash-2048x1496.png" gap:platform="ios" width="2048" height="1496" /><!-- Landscape -->
+	<gap:splash src="res/screen/ios/splash-1536x2008.png" gap:platform="ios" width="1536" height="2008" /><!-- Portrait -->
+	<gap:splash src="res/screen/ios/splash-2048x1496.png" gap:platform="ios" width="2048" height="1496" /><!-- Landscape -->
 		
 	
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />

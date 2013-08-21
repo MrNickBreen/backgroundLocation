@@ -28,6 +28,7 @@ var app = {
         this.initFastClick();
         this.initUserId();
 		this.initPasscode();
+        this.initView();
 		app.timeLastSubmit = (new Date().getTime() / 1000);
     },
     initFastClick: function () {
@@ -54,6 +55,13 @@ var app = {
 			passcodeText = this.passcode;
 		}
 		$('#userPasscode').val(passcodeText);
+    },
+    initView: function() {
+        if (this.passcode === null) {
+            $('#settingsPage #enterPasswordInstruction').show();
+            $('#statusPage').hide();
+            $('#settingsPage').show();
+        }
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -127,10 +135,14 @@ var app = {
 $("#userPasscode").focusout(function () {
      var permanentStorage = window.localStorage;
      permanentStorage.setItem("passcode", $("#userPasscode").val());
+    this.passcode = $("#userPasscode").val();
+    if ($("#userPasscode").val() !== "" && $('#settingsPage #enterPasswordInstruction').is(":visible")) {
+                            $('#settingsPage #enterPasswordInstruction').hide();
+    }
 });
 
 $(document).delegate('.ui-navbar a', 'click', function () {
-    $(this).addClass('ui-btn-active');
-    $('.content_div').hide();
-    $('#' + $(this).attr('data-href')).show();
-});
+                     $(this).addClass('ui-btn-active');
+                     $('.content_div').hide();
+                     $('#' + $(this).attr('data-href')).show();
+                     });
