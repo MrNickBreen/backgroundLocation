@@ -133,8 +133,10 @@ var app = {
         hours = hours % 12;
         hours = hours ? hours : 12;
 		
-		return (hours + ':' + time.getMinutes() +':'+ time.getSeconds()+ ' ' + ampm);
-		
+		return (hours + ':' + app.padZero(time.getMinutes()) +':'+ app.padZero(time.getSeconds())+ ' ' + ampm);
+	},
+	padZero:function(num){
+		return (num<10 ? '0'+num:num);
 	}
 };
 
