@@ -159,3 +159,7 @@ font-size:20px;
 #userPasscodeContainer, #numUsersContainer {
 margin-bottom:60px;
 }
+
+#settingsPage #enterPasswordInstruction { 
+display:none;
+}
