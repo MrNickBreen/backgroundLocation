@@ -29,12 +29,16 @@ app.submitToServer =  function() {
 						document.getElementById("numUsersContainer").style.display = "block";
 					}
 					var serverResponse = document.getElementById('serverResponse');
-					serverResponse.innerHTML = responseObj.message;
+					serverResponse.innerHTML = ""+ app.getReadableTime( new Date())+": "+responseObj.message;
 			   },
 			   error: function(request, errorType, errorMessage) {
 				var serverError = document.getElementById('serverResponse');
-				serverError.innerHTML = "Error: " + errorMessage;
+				serverError.innerHTML = ""+app.getReadableTime( new Date()) +"Error: " + errorMessage;
 			   }
 		});
+	}
+	else{
+					var serverError = document.getElementById('serverResponse');
+				serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date()) ;
 	}
 };

@@ -30,7 +30,7 @@ var app = {
         this.initUserId();
 		this.initPasscode();
         this.initView();
-		app.timeLastSubmit = (new Date().getTime() / 1000);
+		app.timeLastSubmit = (new Date().getTime() / 1000)-60; //minus 60 so we trigger web call first time.
     },
     initFastClick: function () {
         window.addEventListener('load', function() {
@@ -111,27 +111,32 @@ var app = {
         app.submitToServer();
         
         elem = document.getElementById('locationInfo');
-        var hours = position.timestamp.getHours();
-        var ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        
         elem.innerHTML = ('Latitude: '   + position.coords.latitude.toFixed(3)  + '<br/>' +
               'Longitude: '         + position.coords.longitude.toFixed(3)         + '<br/>' +
-              'Last Update: '         + hours + ':' + position.timestamp.getMinutes() +':'+ position.timestamp.getSeconds()+ ' ' + ampm);
+              'Last Update: '         + app.getReadableTime( position.timestamp));
     },
     onError: function(error) {
 		gpsErrorCount++;
-		if(gpsErrorCount>3){
-			var currentdate = new Date(); 	
+		  
+		  /*app.stopGPS();
+		  app.startGPS();*/
+		
+		if(gpsErrorCount>3){	
 			elem = document.getElementById('locationInfo');
-			elem.innerHTML = ('There is an error with the GPS. '+  currentdate.getHours() + ":"  
-					+ currentdate.getMinutes() + ":" 
-					+ currentdate.getSeconds()+"<br/> message:"+ error.message);
+			elem.innerHTML = ('There is an error with the GPS. '+ app.getReadableTime( new Date())+"<br/> message:"+ error.message);
 			console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
 			
 		}
-    }
+    },
+	getReadableTime: function(time){
+		var hours = time.getHours();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+		
+		return (hours + ':' + time.getMinutes() +':'+ time.getSeconds()+ ' ' + ampm);
+		
+	}
 };
 
 $("#userPasscode").focusout(function () {
