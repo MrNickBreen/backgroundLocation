@@ -29,6 +29,7 @@ var app = {
         this.initUserId();
 		this.initPasscode();
         this.initView();
+		app.timeLastSubmit = (new Date().getTime() / 1000);
     },
     initFastClick: function () {
         window.addEventListener('load', function() {
@@ -83,8 +84,8 @@ var app = {
          });
     },
     startGPS: function() {
-        // TODO: change timeout to be longer than one minute
-        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60 , maximumAge: 3*1000 });
+
+        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60*2 , maximumAge: 5*1000 });
     },
     stopGPS: function() {
         navigator.geolocation.clearWatch(app.GPSWatchId);
@@ -122,6 +123,12 @@ var app = {
         elem = document.getElementById('locationInfo');
         elem.innerHTML = ('There is an error with the GPS.');
         console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
+		
+		//30 minutes without gps succeeding.
+		if(((new Date().getTime() / 1000)- app.timeLastSubmit ) > 60*30){
+			alert('GPS error. Please check your gps settings.');
+			app.timeLastSubmit = (new Date().getTime() / 1000);
+		}
     }
 };
 
