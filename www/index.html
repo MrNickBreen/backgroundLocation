@@ -60,8 +60,11 @@
 					<input type="text" id="numOfUsers" placeholder="1"/>
 				</div>
 				<div id="locationToggleContainer">
-					<label>Use GPS:</label>
-					<input type="checkbox" id="locationToggle" checked="checked"/>
+					<label>GPS:</label>
+                    <select name="flip-1" id="locationToggle" data-role="slider">
+                        <option value="false">Off</option>
+                        <option value="true" selected="selected">On</option>
+                    </select>
 				</div>						
 			</div><!-- /content -->
 		</div><!-- /page  -->
