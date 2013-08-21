@@ -168,6 +168,7 @@ padding:18px 10px 0px 0px;
 		font-size:0.8em;
 	    text-transform:none;
 		text-align:left;
+		margin-top:8px;
 }
 
 #app #statusPage, #app #privacyPage {
