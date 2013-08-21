@@ -235,6 +235,12 @@ background: url("../img/icon/privacy.png") 50% 50% no-repeat;
     }
 }
 
+@media only screen and (min-width: 700px) {
+    #app {
+        font-size:35px;
+    }
+}
+
 #navbar .ui-btn-inner {
 padding-top:35px;
 font-size:10px;
