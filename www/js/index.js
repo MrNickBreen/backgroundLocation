@@ -115,12 +115,12 @@ var app = {
               'Last Update: '         + app.getReadableTime( position.timestamp));
     },
     onError: function(error) {
-		gpsErrorCount++;
+		app.gpsErrorCount++;
 		  
 		  /*app.stopGPS();
 		  app.startGPS();*/
 		
-		if(gpsErrorCount>3){	
+		if(app.gpsErrorCount>3){	
 			elem = document.getElementById('locationInfo');
 			elem.innerHTML = ('There is an error with the GPS. '+ app.getReadableTime( new Date())+"<br/> message:"+ error.message);
 			console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
