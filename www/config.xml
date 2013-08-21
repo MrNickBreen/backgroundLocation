@@ -1,11 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.hello-world" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>HelloWorld</name>
+<widget id="com.smewebsites.99redbeaconstracker" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>99RedBeaconsTracker</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        99 Red Beacons Tracker is the application that goes alongside the artwork "99 Red Beacons" for Nuit Blanche Ottawa + Gatineau. 
+
+99 flashing red balloons tour the city, each one with a morse code message of a member of the Canadian Armed Forces. Inspired by the Cold War song 99 Luftballons, "99 Red Beacons" deals with the themes of invisible communication & military influence. This is the application that tracks the participants of the artwork during the night to be displayed at SAW Gallery. This application was made possible because of the generosity of Nuit Blanche Ottawa + Gatineau and SAW Gallery.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="david@smewebsites.com" href="http://www.smewebsites.com">
+        SMEWebsites
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="permissions" value="none" />
