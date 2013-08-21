@@ -30,12 +30,14 @@
 	<div id="app">
 		<div  id="statusPage" class="content_div">			
 			<div data-role="content" >	
-				<img src="img/logo.png" />		
+				<img src="img/logo.jpg" id="logo"/>		
 				<hr />
 				<div id="connectionInfo">
+					Internet: 
 				</div>
 				<hr />
 				<div id="locationInfo">
+				Getting location...
 				</div>
 				<hr />
 				<div id="serverResponse">
@@ -66,17 +68,26 @@
 
 		<div id="privacyPage" class="content_div">
 			<div data-role="content" >
-					<h1>Privacy Policy</h1>
-					<p>This app collects and transmits your position for the purpose of the Nuit Blanche 2013 art installation. It will continue to run in the background unless you turn off the GPS toggle.</p>
-					<p>Your position is sent with a unique id, but no other identifying information. Your data is used solely for the Nuit Blanche Art installation and will not be resold or distributed to any third parties.</p>
+					<div id="legal">
+						<h1>Privacy Policy</h1>					
+						<p>This app collects and transmits your position for the purpose of the Nuit Blanche 2013 art installation. It will continue to run in the background unless you turn off the GPS toggle. Your position is sent with a unique id, but no other identifying information. Your data will not be resold or distributed to any third parties.</p>
+					</div>
+			
+
+					<div id="logos">
+						<p>Made possible by...</p>
+						<img src="img/SAW-Logo.png" />
+						<img src="img/artengine.png" />
+					</div>
+					
 				</div><!-- /content -->
 		</div><!-- /page  -->
         <div id="footer" data-role="footer" data-id="foo1" data-position="fixed">
             <div id="navbar" data-role="navbar">
                 <ul>
                     <li><a id="statusButton" href="#" data-href="statusPage" data-icon="nb-status">Status</a></li>
-                    <li><a id="settingsButton" href="#" data-href="settingsPage" data-icon="nb-status">Settings</a></li>
-                    <li><a id="privacyButton" href="#" data-href="privacyPage" data-icon="nb-status">Privacy</a></li>
+                    <li><a id="settingsButton" href="#" data-href="settingsPage" data-icon="nb-settings">Settings</a></li>
+                    <li><a id="privacyButton" href="#" data-href="privacyPage" data-icon="nb-privacy">Privacy</a></li>
                 </ul>
             </div><!-- /navbar -->
         </div><!-- /footer -->    
