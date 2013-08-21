@@ -47,7 +47,6 @@ body {
 
 /* Portrait layout (default) */
 .app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
     left:50%;
     top:50%;
@@ -142,6 +141,33 @@ padding:10px 10px 0px 0px;
     left:0;
     float:left;
     position:relative;
+}
+
+#logo{
+	max-height:40%;
+}
+#logos p{
+		margin:0;
+		font-size:0.8em;
+	    text-transform:none;
+		text-align:left;
+	
+}
+#logos img{
+	max-width:70%;
+	margin-top: 5% ;
+}
+
+#legal p{
+		font-size:0.7em;
+	    text-transform:none;
+		text-align:left;
+}
+
+#legal h1{
+		font-size:0.8em;
+	    text-transform:none;
+		text-align:left;
 }
 
 #app #statusPage, #app #privacyPage {
