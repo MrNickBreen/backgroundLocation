@@ -7,7 +7,7 @@ app.submitToServer =  function() {
 	if(((new Date().getTime() / 1000)- app.timeLastSubmit ) > 59){
 		app.timeLastSubmit = new Date().getTime() / 1000;
 
-		$.ajax("http://www.smewebsites.com/nuitblanche/submit.php", {
+		$.ajax("http://artengine.ca/nnrbeacons/submit.php", {
 			   contentType:"application/json",
 			   type:"GET",
 			   data: {
@@ -29,12 +29,16 @@ app.submitToServer =  function() {
 						document.getElementById("numUsersContainer").style.display = "block";
 					}
 					var serverResponse = document.getElementById('serverResponse');
-					serverResponse.innerHTML = responseObj.message;
+					serverResponse.innerHTML = responseObj.message+": "+ app.getReadableTime( new Date());
 			   },
 			   error: function(request, errorType, errorMessage) {
 				var serverError = document.getElementById('serverResponse');
-				serverError.innerHTML = "Error: " + errorMessage;
+				serverError.innerHTML = ""+app.getReadableTime( new Date()) +"Error: " + errorMessage;
 			   }
 		});
+	}
+	else{
+					var serverError = document.getElementById('serverResponse');
+				serverError.innerHTML = "Too soon: "+app.getReadableTime( new Date()) ;
 	}
 };
