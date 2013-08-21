@@ -7,7 +7,7 @@ app.submitToServer =  function() {
 	if(((new Date().getTime() / 1000)- app.timeLastSubmit ) > 59){
 		app.timeLastSubmit = new Date().getTime() / 1000;
 
-		$.ajax("http://www.smewebsites.com/nuitblanche/submit.php", {
+		$.ajax("http://artengine.ca/nnrbeacons/submit.php", {
 			   contentType:"application/json",
 			   type:"GET",
 			   data: {
