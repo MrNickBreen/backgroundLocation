@@ -21,6 +21,7 @@ var app = {
 	passcode:0,
     GPSWatchId: null,
 	timeLastSubmit:0,
+	gpsErrorCount:0,
 	
     // Application Constructor
     initialize: function() {
@@ -84,8 +85,7 @@ var app = {
          });
     },
     startGPS: function() {
-
-        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60*2 , maximumAge: 5*1000 });
+        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60*4 , maximumAge: 1*1000 });
     },
     stopGPS: function() {
         navigator.geolocation.clearWatch(app.GPSWatchId);
@@ -106,6 +106,7 @@ var app = {
         elem.innerHTML = 'Internet: ' + states[networkState];
     },
     onSuccess: function(position) {
+		gpsErrorCount=0;//reset counter
         app.position = position;
         app.submitToServer();
         
@@ -120,14 +121,15 @@ var app = {
               'Last Update: '         + hours + ':' + position.timestamp.getMinutes() +':'+ position.timestamp.getSeconds()+ ' ' + ampm);
     },
     onError: function(error) {
-        elem = document.getElementById('locationInfo');
-        elem.innerHTML = ('There is an error with the GPS.');
-        console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
-		
-		//30 minutes without gps succeeding.
-		if(((new Date().getTime() / 1000)- app.timeLastSubmit ) > 60*30){
-			alert('GPS error. Please check your gps settings.');
-			app.timeLastSubmit = (new Date().getTime() / 1000);
+		gpsErrorCount++;
+		if(gpsErrorCount>3){
+			var currentdate = new Date(); 	
+			elem = document.getElementById('locationInfo');
+			elem.innerHTML = ('There is an error with the GPS. '+  currentdate.getHours() + ":"  
+					+ currentdate.getMinutes() + ":" 
+					+ currentdate.getSeconds()+"<br/> message:"+ error.message);
+			console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
+			
 		}
     }
 };
