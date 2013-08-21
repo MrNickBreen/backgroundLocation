@@ -29,7 +29,7 @@ app.submitToServer =  function() {
 						document.getElementById("numUsersContainer").style.display = "block";
 					}
 					var serverResponse = document.getElementById('serverResponse');
-					serverResponse.innerHTML = ""+ app.getReadableTime( new Date())+": "+responseObj.message;
+					serverResponse.innerHTML = responseObj.message+": "+ app.getReadableTime( new Date());
 			   },
 			   error: function(request, errorType, errorMessage) {
 				var serverError = document.getElementById('serverResponse');
