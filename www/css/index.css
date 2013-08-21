@@ -239,6 +239,41 @@ background: url("../img/icon/privacy.png") 50% 50% no-repeat;
     #app {
         font-size:35px;
     }
+    
+    #navbar .ui-icon-nb-status {
+    background: url("../img/iconL/status.png") 50% 50% no-repeat;
+    }
+
+    #navbar .ui-icon-nb-settings {
+    background: url("../img/iconL/settings.png") 50% 50% no-repeat;
+    }
+
+    #navbar .ui-icon-nb-privacy {
+    background: url("../img/iconL/privacy.png") 50% 50% no-repeat;
+    }
+
+    #navbar .ui-icon-nb-status, #navbar .ui-icon-nb-settings, #navbar .ui-icon-nb-privacy {
+		background-size: 60px 60px;
+    }
+    
+    #navbar .ui-btn {
+        height:100px;
+    }
+    
+    #navbar .ui-icon {
+        width:60px !important;
+        height:60px !important;
+        margin-left:-30px !important;
+    }
+    
+    #navbar .ui-btn-inner {
+        font-size:18px !important;
+        padding-top:70px !important;
+    }
+    
+    #locationToggleContainer .ui-slider {
+        width:120px;
+    }
 }
 
 #navbar .ui-btn-inner {
