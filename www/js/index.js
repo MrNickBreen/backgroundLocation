@@ -74,9 +74,8 @@ var app = {
         app.startGPS();
     },
     initGPSToggleListener: function() {
-        $('#locationToggle').click(function ()
-         {
-             if (this.checked) {
+        $('#locationToggle').bind( "change", function(event, ui) {
+            if (this.value == "true") {
                 app.startGPS();
              }
              else {
