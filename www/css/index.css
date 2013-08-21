@@ -163,3 +163,34 @@ margin-bottom:60px;
 #settingsPage #enterPasswordInstruction { 
 display:none;
 }
+
+/* App Icons */
+#navbar .ui-icon {
+width: 30px!important;
+height: 30px!important;
+margin-left: -15px !important;
+box-shadow: none!important;
+-moz-box-shadow: none!important;
+-webkit-box-shadow: none!important;
+-webkit-border-radius: 0 !important;
+border-radius: 0 !important;
+background-size: 30px 30px;
+}
+
+#navbar .ui-icon-nb-status {
+background: url("../img/icon.png") 50% 50% no-repeat;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	#navbar .ui-icon-nb-status {
+		background-image: url("../img/icon-highres.png");
+		background-size: 30px 30px;
+	}
+}
+
+#navbar .ui-btn-inner {
+padding-top:35px;
+font-size:10px;
+padding-bottom:.2em;
+}
+
