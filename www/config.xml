@@ -4,7 +4,7 @@
     <description>
         99 Red Beacons Tracker is the application that goes alongside the artwork "99 Red Beacons" for Nuit Blanche Ottawa + Gatineau. 
 
-99 flashing red balloons tour the city, each one with a morse code message of a member of the Canadian Armed Forces. Inspired by the Cold War song 99 Luftballons, "99 Red Beacons" deals with the themes of invisible communication & military influence. This is the application that tracks the participants of the artwork during the night to be displayed at SAW Gallery. This application was made possible because of the generosity of Nuit Blanche Ottawa + Gatineau and SAW Gallery.
+99 flashing red balloons tour the city, each one with a morse code message of a member of the Canadian Armed Forces. Inspired by the Cold War song 99 Luftballons, "99 Red Beacons" deals with the themes of invisible communication &amp; military influence. This is the application that tracks the participants of the artwork during the night to be displayed at SAW Gallery. This application was made possible because of the generosity of Nuit Blanche Ottawa + Gatineau and SAW Gallery.
     </description>
     <author email="david@smewebsites.com" href="http://www.smewebsites.com">
         SMEWebsites
@@ -37,8 +37,8 @@
     <icon gap:platform="blackberry" gap:state="hover" src="res/icon/blackberry/icon-80.png" />
     <icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" />
     <icon gap:platform="ios" height="72" src="res/icon/ios/icon-72.png" width="72" />
-    <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
-    <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
+    <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57@2x.png" width="114" />
+    <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72@2x.png" width="144" />
     <icon gap:platform="webos" src="res/icon/webos/icon-64.png" />
     <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png" />
     <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173.png" />
@@ -50,15 +50,15 @@
 	
     <gap:splash gap:platform="blackberry" src="res/screen/blackberry/screen-225.png" />
 	
-    <gap:splash gap:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
-    <gap:splash gap:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
-    <gap:splash gap:platform="ios" height="1004" src="res/screen/ios/screen-ipad-portrait.png" width="768" /> <!-- used to be height 1024, but 1004 is actual requirment -->
+    <gap:splash gap:platform="ios" height="480" src="res/screen/ios/Default.png" width="320" />
+    <gap:splash gap:platform="ios" height="960" src="res/screen/ios/Default@2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="1004" src="res/screen/ios/Default-Portrait~ipad.png" width="768" /> <!-- used to be height 1024, but 1004 is actual requirment -->
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
 
-	<gap:splash src="res/screen/ios/splash-iphone5.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
+	<gap:splash src="res/screen/ios/Default-568@2x.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
 	<!-- Retina iPads: Requires PhoneGap 2.5.0 or higher -->
-	<gap:splash src="res/screen/ios/splash-1536x2008.png" gap:platform="ios" width="1536" height="2008" /><!-- Portrait -->
-	<gap:splash src="res/screen/ios/splash-2048x1496.png" gap:platform="ios" width="2048" height="1496" /><!-- Landscape -->
+	<gap:splash src="res/screen/ios/Default-Portrait~ipad.png" gap:platform="ios" width="1536" height="2008" /><!-- Portrait -->
+	<gap:splash src="res/screen/ios/Default-Portrait~ipad.png" gap:platform="ios" width="2048" height="1496" /><!-- Landscape -->
 		
 	
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
