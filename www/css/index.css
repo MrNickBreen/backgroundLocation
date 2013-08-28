@@ -183,8 +183,8 @@ background:#fff !important;
 font-size:20px;
 }
 
-#userPasscodeContainer, #numUsersContainer {
-margin-bottom:60px;
+#userPasscodeContainer, #numUsersContainer, #locationToggleContainer {
+margin-bottom:30px;
 }
 
 #settingsPage #enterPasswordInstruction { 
