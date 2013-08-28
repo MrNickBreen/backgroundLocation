@@ -129,9 +129,11 @@ clear:none;
 }
 
 #locationToggleContainer label {
-float:left;
-padding:18px 10px 0px 0px;
+padding:0px 10px 0px 0px;
+position:relative;
+top:-22px;
 }
+
 
 .ui-checkbox #locationToggle {
     width:30px;
@@ -171,7 +173,7 @@ padding:18px 10px 0px 0px;
 		margin-top:8px;
 }
 
-#app #statusPage, #app #privacyPage {
+#app #statusPage, #app #privacyPage, #settingsPage {
 text-align:center;
 }
 
@@ -183,8 +185,12 @@ background:#fff !important;
 font-size:20px;
 }
 
-#userPasscodeContainer, #numUsersContainer, #locationToggleContainer {
+#userPasscodeContainer, #numUsersContainer {
 margin-bottom:30px;
+}
+
+#locationToggleContainer {
+margin-bottom:25px;
 }
 
 #settingsPage #enterPasswordInstruction { 
