@@ -191,6 +191,14 @@ margin-bottom:60px;
 display:none;
 }
 
+.success{
+	background-color:#99FF99;
+}
+.fail{
+	background-color:#FF9999;
+}
+
+
 /* App Icons */
 #navbar .ui-icon {
 width: 30px!important;

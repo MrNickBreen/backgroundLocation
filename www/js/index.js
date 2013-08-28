@@ -22,6 +22,7 @@ var app = {
     GPSWatchId: null,
 	timeLastSubmit:0,
 	gpsErrorCount:0,
+	forcedSubmit:false, //set if user explicitly presses submit button
 	
     // Application Constructor
     initialize: function() {
@@ -102,7 +103,15 @@ var app = {
         states[Connection.NONE]     = 'No';
         
         elem = document.getElementById('connectionInfo');
-        elem.innerHTML = 'Internet: ' + states[networkState];
+		if(networkState == Connection.NONE){
+			$(elem).removeClass("success");
+			$(elem).addClass("fail");
+		}
+       	else {
+			$(elem).removeClass("fail");
+			$(elem).addClass("success");			
+		}
+		elem.innerHTML = 'Internet: ' + states[networkState];
     },
     onSuccess: function(position) {
 		gpsErrorCount=0;//reset counter
@@ -110,6 +119,8 @@ var app = {
         app.submitToServer();
         
         elem = document.getElementById('locationInfo');
+		$(elem).removeClass("fail");
+		$(elem).addClass("success");
         elem.innerHTML = ('Latitude: '   + position.coords.latitude.toFixed(3)  + '<br/>' +
               'Longitude: '         + position.coords.longitude.toFixed(3)         + '<br/>' +
               'Last Update: '         + app.getReadableTime( position.timestamp));
@@ -122,9 +133,14 @@ var app = {
 		
 		if(app.gpsErrorCount>3){	
 			elem = document.getElementById('locationInfo');
-			elem.innerHTML = ('There is an error with the GPS. '+ app.getReadableTime( new Date())+"<br/> message:"+ error.message);
-			console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);
+			$(elem).removeClass("success");
+			$(elem).addClass("fail");
+			elem.innerHTML = ('There is an error, restarting GPS. '+ app.getReadableTime( new Date())+"<br/> message:"+ error.message);
+			console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);	
 			
+			// Restart gps
+			app.stopGPS();
+			app.startGPS();			
 		}
     },
 	getReadableTime: function(time){
@@ -149,8 +165,15 @@ $("#userPasscode").focusout(function () {
     }
 });
 
+ $("#submit-passcode").click(function() {
+	app.forcedSubmit=true; //forces pop-up
+    app.submitToServer();
+});
+
 $(document).delegate('.ui-navbar a', 'click', function () {
                      $(this).addClass('ui-btn-active');
                      $('.content_div').hide();
                      $('#' + $(this).attr('data-href')).show();
                      });
+					 
+				
