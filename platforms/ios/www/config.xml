@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.smewebsites.nuitblanche" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>99RedBeaconsTracker</name>
+    <description>
+        99 Red Beacons Tracker is the application that goes alongside the artwork "99 Red Beacons" for Nuit Blanche Ottawa + Gatineau. 
+
+99 flashing red balloons tour the city, each one with a morse code message of a member of the Canadian Armed Forces. Inspired by the Cold War song 99 Luftballons, "99 Red Beacons" deals with the themes of invisible communication &amp; military influence. This is the application that tracks the participants of the artwork during the night to be displayed at SAW Gallery. This application was made possible because of the generosity of Nuit Blanche Ottawa + Gatineau and SAW Gallery.
+    </description>
+    <author email="david@smewebsites.com" href="http://www.smewebsites.com">
+        SMEWebsites
+    </author>
+    <feature name="http://api.phonegap.com/1.0/device" />
+    <preference name="permissions" value="none" />
+    <preference name="orientation" value="portrait" />
+    <preference name="target-device" value="universal" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="false" />
+    <preference name="ios-statusbarstyle" value="black-opaque" />
+    <preference name="detect-data-types" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="auto-hide-splash-screen" value="true" />
+    <preference name="disable-cursor" value="false" />
+    <preference name="android-minSdkVersion" value="7" />
+    <preference name="android-installLocation" value="auto" />
+	
+	<!-- These values are ignored by local phonegap builds -->	
+    <icon src="icon.png" />
+    <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
+    <icon gap:density="hdpi" gap:platform="android" src="res/icon/android/icon-72-hdpi.png" />
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/android/icon-96-xhdpi.png" />
+    <icon gap:platform="blackberry" src="res/icon/blackberry/icon-80.png" />
+    <icon gap:platform="blackberry" gap:state="hover" src="res/icon/blackberry/icon-80.png" />
+    <icon gap:platform="ios" height="57" src="res/icon/ios/icon-57.png" width="57" />
+    <icon gap:platform="ios" height="72" src="res/icon/ios/icon-72.png" width="72" />
+    <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57@2x.png" width="114" />
+    <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72@2x.png" width="144" />
+    <icon gap:platform="webos" src="res/icon/webos/icon-64.png" />
+    <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png" />
+    <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173.png" />
+	
+    <gap:splash gap:density="ldpi" gap:platform="android" src="res/screen/android/screen-ldpi-portrait.png" />
+    <gap:splash gap:density="mdpi" gap:platform="android" src="res/screen/android/screen-mdpi-portrait.png" />
+    <gap:splash gap:density="hdpi" gap:platform="android" src="res/screen/android/screen-hdpi-portrait.png" />
+    <gap:splash gap:density="xhdpi" gap:platform="android" src="res/screen/android/screen-xhdpi-portrait.png" />
+	
+    <gap:splash gap:platform="blackberry" src="res/screen/blackberry/screen-225.png" />
+	
+    <gap:splash gap:platform="ios" height="480" src="res/screen/ios/Default.png" width="320" />
+    <gap:splash gap:platform="ios" height="960" src="res/screen/ios/Default@2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="1004" src="res/screen/ios/Default-Portrait~ipad.png" width="768" /> <!-- used to be height 1024, but 1004 is actual requirment -->
+    <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
+
+	<gap:splash src="res/screen/ios/Default-568@2x.png"  gap:platform="ios" width="640"  height="1136" /><!-- iPhone5 -->
+	<!-- Retina iPads: Requires PhoneGap 2.5.0 or higher -->
+	<gap:splash src="res/screen/ios/Default-Portrait~ipad.png" gap:platform="ios" width="1536" height="2008" /><!-- Portrait -->
+	<gap:splash src="res/screen/ios/Default-Portrait~ipad.png" gap:platform="ios" width="2048" height="1496" /><!-- Landscape -->
+		
+	
+    <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
+    <access origin="*" />
+</widget>
