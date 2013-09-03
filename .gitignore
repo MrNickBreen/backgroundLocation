@@ -1,5 +1,6 @@
 Notes.txt
-
+*.bat
+*.pbxproj
 www/.settings/*
 www/.project
 
