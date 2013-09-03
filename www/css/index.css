@@ -286,9 +286,9 @@ background: url("../img/icon/privacy.png") 50% 50% no-repeat;
 }
 
 #navbar .ui-btn-inner {
-padding-top:35px;
-font-size:10px;
-padding-bottom:.2em;
-text-transform:capitalize;
+	padding-top:35px;
+	font-size:10px;
+	padding-bottom:.2em;
+	text-transform:capitalize;
 }
 
