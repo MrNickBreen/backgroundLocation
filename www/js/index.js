@@ -11,10 +11,9 @@
  */
 var app = {
 	SERVER_URL: "http://artengine.ca/nnrbeacons/submit.php",
-	HIGH_GPS_ACCURACY: false,
+	HIGH_GPS_ACCURACY: false,	
 	
-	NETWORK_STATES: {},		
-
+	
     deviceId: 0,
 	passcode:0,
     GPSWatchId: null,
@@ -24,7 +23,6 @@ var app = {
 	
     // Application Constructor
     initialize: function() {
-	
         this.bindEvents();
         this.initFastClick();
         this.initUserId();
@@ -84,29 +82,23 @@ var app = {
          });
     },
     startGPS: function() {
-        app.GPSWatchId = navigator.geolocation.watchPosition(app.onGPSSuccess, 
-															 app.onGPSError, 
-															 {
-																 enableHighAccuracy: app.HIGH_GPS_ACCURACY, 
-																 timeout: 1000*60*4 , 
-																 maximumAge: 1*1000 
-															 });
+        app.GPSWatchId = navigator.geolocation.watchPosition(app.onGPSSuccess, app.onGPSError, {enableHighAccuracy: app.HIGH_GPS_ACCURACY, timeout: 1000*60*4 , maximumAge: 1*1000 });
     },
     stopGPS: function() {
         navigator.geolocation.clearWatch(app.GPSWatchId);
     },
     checkConnection: function() {
-        var networkState = navigator.connection.type;	
+        var networkState = navigator.connection.type;
 		
-		//TODO can we move this outside of checkConnection? Not easy because it needs to see'Connection' to work.
-	    this.NETWORK_STATES[Connection.UNKNOWN]  = 'Unknown';
-        this.NETWORK_STATES[Connection.ETHERthis.NET] = 'Etherthis.NET';
-        this.NETWORK_STATES[Connection.WIFI]     = 'WiFi';
-        this.NETWORK_STATES[Connection.CELL_2G]  = 'Cell 2G';
-        this.NETWORK_STATES[Connection.CELL_3G]  = 'Cell 3G';
-        this.NETWORK_STATES[Connection.CELL_4G]  = 'Cell 4G';
-        this.NETWORK_STATES[Connection.CELL]     = 'Cell';
-        this.NETWORK_STATES[Connection.NONE]     = 'No';
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown';
+        states[Connection.ETHERNET] = 'Ethernet';
+        states[Connection.WIFI]     = 'WiFi';
+        states[Connection.CELL_2G]  = 'Cell 2G';
+        states[Connection.CELL_3G]  = 'Cell 3G';
+        states[Connection.CELL_4G]  = 'Cell 4G';
+        states[Connection.CELL]     = 'Cell';
+        states[Connection.NONE]     = 'No';
         
         elem = document.getElementById('connectionInfo');
 		if(networkState == Connection.NONE){
@@ -117,7 +109,7 @@ var app = {
 			$(elem).removeClass("fail");
 			$(elem).addClass("success");			
 		}
-		elem.innerHTML = 'Internet: ' + this.NETWORK_STATES[networkState];
+		elem.innerHTML = 'Internet: ' + states[networkState];
     },
     onGPSSuccess: function(position) {
 		//reset error counter
@@ -135,6 +127,7 @@ var app = {
     },
     onGPSError: function(error) {
 		app.gpsErrorCount++;
+
 		
 		if(app.gpsErrorCount>3){	
 			elem = document.getElementById('locationInfo');
@@ -162,8 +155,8 @@ var app = {
 };
 
 $("#userPasscode").focusout(function () {
-    var permanentStorage = window.localStorage;
-    permanentStorage.setItem("passcode", $("#userPasscode").val());
+     var permanentStorage = window.localStorage;
+     permanentStorage.setItem("passcode", $("#userPasscode").val());
     this.passcode = $("#userPasscode").val();
     if ($("#userPasscode").val() !== "" && $('#settingsPage #enterPasswordInstruction').is(":visible")) {
                             $('#settingsPage #enterPasswordInstruction').hide();
@@ -176,9 +169,9 @@ $("#userPasscode").focusout(function () {
 });
 
 $(document).delegate('.ui-navbar a', 'click', function () {
-	 $(this).addClass('ui-btn-active');
-	 $('.content_div').hide();
-	 $('#' + $(this).attr('data-href')).show();
-});
+                     $(this).addClass('ui-btn-active');
+                     $('.content_div').hide();
+                     $('#' + $(this).attr('data-href')).show();
+                     });
 					 
 				

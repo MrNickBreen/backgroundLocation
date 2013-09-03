@@ -1,4 +1,4 @@
-/* 
+/*
  * David Rust-Smith & Nick Breen - August 2013
  *
  * Apache 2.0
@@ -10,7 +10,7 @@
  * KIND, either express or implied. 
  */
 app.submitToServer =  function() {
-	var userPasscode = document.getElementById('userPasscode').value;
+    var userPasscode = document.getElementById('userPasscode').value;
     var numOfUsers = document.getElementById('numOfUsers').value;
     numOfUsers = (numOfUsers == "") ? 1 : numOfUsers;
     
@@ -34,8 +34,12 @@ app.submitToServer =  function() {
 				})
 		   },
 		   timeout: 10000,
-		   success: app.serverSuccess,
-		   error: app.serverError
+		   success:function(response){
+				app.serverSuccess(response);
+		   },
+		   error: function(request, errorType, errorMessage) {
+				app.serverError(request, errorType, errorMessage);
+		   }
 		});
 	}
 	else{
@@ -59,9 +63,9 @@ app.serverSuccess = function(response){
 		$(serverResponse).addClass("fail");
 	}
 	else{
-		if(app.forcedSubmit){			
-			app.forcedSubmit=false;
+		if(app.forcedSubmit){
 			navigator.notification.alert("Success. Thank you!", null, "99 Red Beacons Tracker");
+			app.forcedSubmit=false;
 		}	
 		$(serverResponse).removeClass("fail");
 		$(serverResponse).addClass("success");
@@ -74,6 +78,7 @@ app.serverSuccess = function(response){
 			document.getElementById("numUsersContainer").style.display = "none";
 		}
 	}
+
 };
 
 app.serverError =  function(request, errorType, errorMessage) {
@@ -81,10 +86,8 @@ app.serverError =  function(request, errorType, errorMessage) {
 	$(serverError).removeClass("success");
 	$(serverError).addClass("fail");
 	serverError.innerHTML = "Error: " + errorMessage+" "+app.getReadableTime( new Date());
-	
 	if(app.forcedSubmit){
 		navigator.notification.alert("Error, please check your internet connection", null, "99 Red Beacons Tracker");
 		app.forcedSubmit=false;
 	}
-}
-
+};
