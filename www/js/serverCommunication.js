@@ -10,7 +10,6 @@
  * KIND, either express or implied. 
  */
 app.submitToServer =  function() {
-    var serverURL = "http://artengine.ca/nnrbeacons/submit.php";	
 	var userPasscode = document.getElementById('userPasscode').value;
     var numOfUsers = document.getElementById('numOfUsers').value;
     numOfUsers = (numOfUsers == "") ? 1 : numOfUsers;
@@ -20,34 +19,23 @@ app.submitToServer =  function() {
 		app.timeLastSubmit = new Date().getTime() / 1000;
 		app.checkConnection();
 
-		$.ajax(serverURL, {
-			   contentType:"application/json",
-			   type:"GET",
-			   data: {
-				   "passcode": userPasscode,
-				   "deviceId": app.deviceId,
-				   "marker": JSON.stringify({
-					   "numOfUsers":numOfUsers,
-					   "lat":app.position.coords.latitude,
-					   "lng":app.position.coords.longitude,
-					   "accuracy":app.position.coords.accuracy,
-					   "heading":app.position.coords.heading
-					})
-			   },
-			   timeout: 10000,
-			   success:function(response){
-					app.serverSuccess(response);
-			   },
-			   error: function(request, errorType, errorMessage) {
-					var serverError = document.getElementById('serverResponse');
-					$(serverError).removeClass("success");
-					$(serverError).addClass("fail");
-					serverError.innerHTML = "Error: " + errorMessage+" "+app.getReadableTime( new Date());
-				if(app.forcedSubmit){
-                    navigator.notification.alert("Error, please check your internet connection", null, "99 Red Beacons Tracker");
-					app.forcedSubmit=false;
-				}
-			   }
+		$.ajax(app.SERVER_URL, {
+		   contentType:"application/json",
+		   type:"GET",
+		   data: {
+			   "passcode": userPasscode,
+			   "deviceId": app.deviceId,
+			   "marker": JSON.stringify({
+				   "numOfUsers":numOfUsers,
+				   "lat":app.position.coords.latitude,
+				   "lng":app.position.coords.longitude,
+				   "accuracy":app.position.coords.accuracy,
+				   "heading":app.position.coords.heading
+				})
+		   },
+		   timeout: 10000,
+		   success: app.serverSuccess,
+		   error: app.serverError
 		});
 	}
 	else{
@@ -87,3 +75,16 @@ app.serverSuccess = function(response){
 		}
 	}
 };
+
+app.serverError =  function(request, errorType, errorMessage) {
+	var serverError = document.getElementById('serverResponse');
+	$(serverError).removeClass("success");
+	$(serverError).addClass("fail");
+	serverError.innerHTML = "Error: " + errorMessage+" "+app.getReadableTime( new Date());
+	
+	if(app.forcedSubmit){
+		navigator.notification.alert("Error, please check your internet connection", null, "99 Red Beacons Tracker");
+		app.forcedSubmit=false;
+	}
+}
+

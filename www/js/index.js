@@ -10,21 +10,30 @@
  * KIND, either express or implied. 
  */
 var app = {
+	SERVER_URL: "http://artengine.ca/nnrbeacons/submit.php",
+	HIGH_GPS_ACCURACY: false,
+	
+	NETWORK_STATES: {},		
+
     deviceId: 0,
 	passcode:0,
     GPSWatchId: null,
 	timeLastSubmit:0,
 	gpsErrorCount:0,
-	forcedSubmit:false, //set if user explicitly presses submit button
+	forcedSubmit:false, //set if user explicitly presses submit button. Used to determine if we show alert boxes.
 	
     // Application Constructor
     initialize: function() {
+	
         this.bindEvents();
         this.initFastClick();
         this.initUserId();
 		this.initPasscode();
         this.initView();
 		app.timeLastSubmit = (new Date().getTime() / 1000)-60; //minus 60 so we trigger web call first time.
+    },
+	bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     initFastClick: function () {
         window.addEventListener('load', function() {
@@ -58,10 +67,6 @@ var app = {
             $('#settingsPage').show();
         }
     },
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // The scope of 'this' is the event.
     onDeviceReady: function() {
         navigator.splashscreen.hide();
         app.checkConnection();
@@ -79,22 +84,29 @@ var app = {
          });
     },
     startGPS: function() {
-        app.GPSWatchId = navigator.geolocation.watchPosition(app.onSuccess, app.onError, {enableHighAccuracy: false, timeout: 1000*60*4 , maximumAge: 1*1000 });
+        app.GPSWatchId = navigator.geolocation.watchPosition(app.onGPSSuccess, 
+															 app.onGPSError, 
+															 {
+																 enableHighAccuracy: app.HIGH_GPS_ACCURACY, 
+																 timeout: 1000*60*4 , 
+																 maximumAge: 1*1000 
+															 });
     },
     stopGPS: function() {
         navigator.geolocation.clearWatch(app.GPSWatchId);
     },
     checkConnection: function() {
-        var networkState = navigator.connection.type;
-        var states = {};
-        states[Connection.UNKNOWN]  = 'Unknown';
-        states[Connection.ETHERNET] = 'Ethernet';
-        states[Connection.WIFI]     = 'WiFi';
-        states[Connection.CELL_2G]  = 'Cell 2G';
-        states[Connection.CELL_3G]  = 'Cell 3G';
-        states[Connection.CELL_4G]  = 'Cell 4G';
-        states[Connection.CELL]     = 'Cell';
-        states[Connection.NONE]     = 'No';
+        var networkState = navigator.connection.type;	
+		
+		//TODO can we move this outside of checkConnection? Not easy because it needs to see'Connection' to work.
+	    this.NETWORK_STATES[Connection.UNKNOWN]  = 'Unknown';
+        this.NETWORK_STATES[Connection.ETHERthis.NET] = 'Etherthis.NET';
+        this.NETWORK_STATES[Connection.WIFI]     = 'WiFi';
+        this.NETWORK_STATES[Connection.CELL_2G]  = 'Cell 2G';
+        this.NETWORK_STATES[Connection.CELL_3G]  = 'Cell 3G';
+        this.NETWORK_STATES[Connection.CELL_4G]  = 'Cell 4G';
+        this.NETWORK_STATES[Connection.CELL]     = 'Cell';
+        this.NETWORK_STATES[Connection.NONE]     = 'No';
         
         elem = document.getElementById('connectionInfo');
 		if(networkState == Connection.NONE){
@@ -105,10 +117,12 @@ var app = {
 			$(elem).removeClass("fail");
 			$(elem).addClass("success");			
 		}
-		elem.innerHTML = 'Internet: ' + states[networkState];
+		elem.innerHTML = 'Internet: ' + this.NETWORK_STATES[networkState];
     },
-    onSuccess: function(position) {
-		gpsErrorCount=0;//reset counter
+    onGPSSuccess: function(position) {
+		//reset error counter
+		gpsErrorCount=0;
+		
         app.position = position;
         app.submitToServer();
         
@@ -119,11 +133,8 @@ var app = {
               'Longitude: '         + position.coords.longitude.toFixed(3)         + '<br/>' +
               'Last Update: '         + app.getReadableTime( position.timestamp));
     },
-    onError: function(error) {
+    onGPSError: function(error) {
 		app.gpsErrorCount++;
-		  
-		  /*app.stopGPS();
-		  app.startGPS();*/
 		
 		if(app.gpsErrorCount>3){	
 			elem = document.getElementById('locationInfo');
@@ -132,7 +143,7 @@ var app = {
 			elem.innerHTML = ('There is an error, restarting GPS. '+ app.getReadableTime( new Date())+"<br/> message:"+ error.message);
 			console.log('error with GPS: error.code:'+error.code    + ' and error message: ' + error.message);	
 			
-			// Restart gps
+			// Restart GPS listener, fixes most issues.
 			app.stopGPS();
 			app.startGPS();			
 		}
@@ -151,8 +162,8 @@ var app = {
 };
 
 $("#userPasscode").focusout(function () {
-     var permanentStorage = window.localStorage;
-     permanentStorage.setItem("passcode", $("#userPasscode").val());
+    var permanentStorage = window.localStorage;
+    permanentStorage.setItem("passcode", $("#userPasscode").val());
     this.passcode = $("#userPasscode").val();
     if ($("#userPasscode").val() !== "" && $('#settingsPage #enterPasswordInstruction').is(":visible")) {
                             $('#settingsPage #enterPasswordInstruction').hide();
@@ -165,9 +176,9 @@ $("#userPasscode").focusout(function () {
 });
 
 $(document).delegate('.ui-navbar a', 'click', function () {
-                     $(this).addClass('ui-btn-active');
-                     $('.content_div').hide();
-                     $('#' + $(this).attr('data-href')).show();
-                     });
+	 $(this).addClass('ui-btn-active');
+	 $('.content_div').hide();
+	 $('#' + $(this).attr('data-href')).show();
+});
 					 
 				
