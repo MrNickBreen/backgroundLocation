@@ -63,6 +63,7 @@ var app = {
     },
     // The scope of 'this' is the event.
     onDeviceReady: function() {
+        navigator.splashscreen.hide();
         app.checkConnection();
         app.initGPSToggleListener();
         app.startGPS();

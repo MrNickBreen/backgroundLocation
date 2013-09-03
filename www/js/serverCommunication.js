@@ -39,12 +39,12 @@ app.submitToServer =  function() {
 					app.serverSuccess(response);
 			   },
 			   error: function(request, errorType, errorMessage) {
-				var serverError = document.getElementById('serverResponse');
+					var serverError = document.getElementById('serverResponse');
 					$(serverError).removeClass("success");
 					$(serverError).addClass("fail");
-				serverError.innerHTML = "Error: " + errorMessage+" :"+app.getReadableTime( new Date());
+					serverError.innerHTML = "Error: " + errorMessage+" "+app.getReadableTime( new Date());
 				if(app.forcedSubmit){
-					alert("Error, please check your internet connection");
+                    navigator.notification.alert("Error, please check your internet connection", null, "99 Red Beacons Tracker");
 					app.forcedSubmit=false;
 				}
 			   }
@@ -65,15 +65,15 @@ app.serverSuccess(response){
 	if(responseObj.message == "not authorized"){
 		if(app.forcedSubmit){
 			app.forcedSubmit=false;
-			alert("This passcode is not authorized. Try again or contact Britta. Your device id is: "+app.deviceId);
+			navigator.notification.alert("This passcode is not authorized. Try again or contact Britta. Your device id is: "+app.deviceId, null, "99 Red Beacons Tracker");
 		}
 		$(serverResponse).removeClass("success");
 		$(serverResponse).addClass("fail");
 	}
 	else{
-		if(app.forcedSubmit){
-			alert("Success. Thank you!");
+		if(app.forcedSubmit){			
 			app.forcedSubmit=false;
+			navigator.notification.alert("Success. Thank you!", null, "99 Red Beacons Tracker");
 		}	
 		$(serverResponse).removeClass("fail");
 		$(serverResponse).addClass("success");

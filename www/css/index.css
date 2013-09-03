@@ -129,9 +129,11 @@ clear:none;
 }
 
 #locationToggleContainer label {
-float:left;
-padding:18px 10px 0px 0px;
+padding:0px 10px 0px 0px;
+position:relative;
+top:-22px;
 }
+
 
 .ui-checkbox #locationToggle {
     width:30px;
@@ -171,7 +173,7 @@ padding:18px 10px 0px 0px;
 		margin-top:8px;
 }
 
-#app #statusPage, #app #privacyPage {
+#app #statusPage, #app #privacyPage, #settingsPage {
 text-align:center;
 }
 
@@ -183,8 +185,12 @@ background:#fff !important;
 font-size:20px;
 }
 
-#userPasscodeContainer, #numUsersContainer, #locationToggleContainer {
+#userPasscodeContainer, #numUsersContainer {
 margin-bottom:30px;
+}
+
+#locationToggleContainer {
+margin-bottom:25px;
 }
 
 #settingsPage #enterPasswordInstruction { 
@@ -224,7 +230,12 @@ background: url("../img/icon/settings.png") 50% 50% no-repeat;
 background: url("../img/icon/privacy.png") 50% 50% no-repeat;
 }
 
-
+#navbar .ui-btn-inner {
+padding-top:35px;
+font-size:10px;
+padding-bottom:.2em;
+text-transform:capitalize;
+}
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2) {
     #navbar .ui-icon-nb-status {
@@ -283,12 +294,5 @@ background: url("../img/icon/privacy.png") 50% 50% no-repeat;
     #locationToggleContainer .ui-slider {
         width:120px;
     }
-}
-
-#navbar .ui-btn-inner {
-	padding-top:35px;
-	font-size:10px;
-	padding-bottom:.2em;
-	text-transform:capitalize;
 }
 
