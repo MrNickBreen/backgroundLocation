@@ -49,3 +49,37 @@ TODOs
 =====
 
 * Factor out GPS specific code into its own object.
+* Add MySQL import for creating schema.
+
+
+
+Server Code
+===========
+
+* map.html and map.js: Map website to view users
+* createUsers.php: onetime use for creating 100 user accounts with unique int passcodes
+* submit.php: for accepting gps updates and adding them to database
+* getMarkers.php code for getting latest GPS update for each user, returns json
+
+
+Server Setup
+------------
+
+Step 1: Open up phpmyadmin on your server and create a database and user.  
+Step 2: Update config.php to reflect the database settings you created.
+Step 3: TODO: add SQL import for creating schema.
+Step 4: Upload all of the files to your server.
+Step 5: Visit createUsers.php once to run it. This creates 110 users with passcodes in the database.
+Step 6: Check phpmyadmin to see some of the passcodes, try them on the app.
+
+
+
+
+
+
+
+
+
+
+
+
