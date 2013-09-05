@@ -1,6 +1,7 @@
 <?php 
 header('Access-Control-Allow-Origin: *');
 
+// Configrable Values
 define('NUM_USERS', '110');			// # of users to be added to DB
 define('PASSCODE_RANGE', '100');	// unique passcodes will use a random number in this range 
 define('PAGE_SECRET', 'Britta');	// secret that map.js will post with getMarker calls

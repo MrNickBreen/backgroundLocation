@@ -3,15 +3,17 @@ require 'config.php'; //makes connection to database
 
 $response_array['advanced'] = 0;
 $response_array['message'] = 'tbd';	
-$response_array['status'] = 'success';
+$response_array['status'] = 'success';	// convention that if a server gives a controlled response that's a success
 
-$deviceId =0;
-$passcode=0 ;
-$marker =0;
+$deviceId = 0;
+$passcode = 0 ;
+$marker = 0;
 
 
 //Check post 
-if(isset($_GET['deviceId']) && isset($_GET['passcode']) && isset($_GET['marker'])){
+if (isset($_GET['deviceId']) 
+	&& isset($_GET['passcode']) 
+	&& isset($_GET['marker'])){
 	
 	$deviceId = $_GET['deviceId'];
 	$passcode = $_GET['passcode'];
@@ -35,7 +37,7 @@ if ($userId  != -1){
 				VALUES (NULL, '.$userId .',"'.$marker.'" ,NOW())';
 				
 	$result = mysql_query($query)or die($query."   - ".mysql_error());
-	$response_array['id']=mysql_insert_id();
+	$response_array['id'] = mysql_insert_id();
 	$response_array['message'] = 'Successful update.';
 	$response_array['status'] = 'success';
 
@@ -48,7 +50,7 @@ echo json_encode($response_array);
 mysql_close($con);
 
 
-//Return int of userId or -1
+//Return int of userId or -1 if not valid
 function getUser($deviceId, $passcode){
 	global $response_array;
 	
