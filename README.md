@@ -49,7 +49,7 @@ Server Code
 ===========
 
 * /Map/..: Map website to view users
-* /createUsers.php: onetime use for creating 100 user accounts with unique int passcodes
+* /dbSetup.php: onetime use for creating tables with users and unique int passcodes
 * /submit.php: for accepting gps updates and adding them to database
 * /getMarkers.php code for getting latest GPS update for each user, returns json
 
@@ -59,9 +59,8 @@ Server Setup
 
 1. Open up phpmyadmin on your server and create a database and user.  
 - Update config.php to reflect the database settings you created.
-- TODO: add SQL import for creating schema.
 - Upload all of the files to your server.
-- Visit createUsers.php once to run it. This creates 110 users with passcodes in the database.
+- Visit dbSetup.php once to run it. This creates database tables and users with passcodes.
 - Check phpmyadmin to see some of the passcodes, try them on the app.
 
 
@@ -70,8 +69,6 @@ TODOs
 =====
 
 * App: Factor out GPS specific code into its own object.
-* Server: Add MySQL import for creating schema.
-* createUsers.php: shouldn't run if we already have 110 users.
 * Passcode security was not a top priority for this app, they are predictable and vulnerable. If passcode security is concern rewrite the passcode generation section.
 * Some developers claim that if PHP responds it should always be success, and ajax error should just be for 404's etc. Research and adjust code accordingly.
 
