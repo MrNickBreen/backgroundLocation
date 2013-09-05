@@ -57,12 +57,12 @@ Server Code
 Server Setup
 ------------
 
-	1. Open up phpmyadmin on your server and create a database and user.  
-	- Update config.php to reflect the database settings you created.
-	- TODO: add SQL import for creating schema.
-	- Upload all of the files to your server.
-	- Visit createUsers.php once to run it. This creates 110 users with passcodes in the database.
-	- Check phpmyadmin to see some of the passcodes, try them on the app.
+1. Open up phpmyadmin on your server and create a database and user.  
+- Update config.php to reflect the database settings you created.
+- TODO: add SQL import for creating schema.
+- Upload all of the files to your server.
+- Visit createUsers.php once to run it. This creates 110 users with passcodes in the database.
+- Check phpmyadmin to see some of the passcodes, try them on the app.
 
 
 
