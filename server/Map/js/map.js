@@ -1,7 +1,10 @@
+var MARKER_REFRESH_SPEED = 60; 	// in seconds
+var SERVER_SECRET = 'Britta';	// must match config.php not super secure, but prevents bots.
+
 var map;		
 var markers = [];
-var haveSetBounds=false; //only set bounds on first success
-var timeOfLastRefresh = (new Date().getTime() / 1000)-60;
+var firstMarkerSuccess = true; //only set bounds on first success
+var timeOfLastRefresh = (new Date().getTime() / 1000) - MARKER_REFRESH_SPEED;
 	
 function initializeMap() {
 	geocoder = new google.maps.Geocoder();
@@ -13,13 +16,14 @@ function initializeMap() {
 			style : google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		}
 	};
-	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
 	resizeMap();
+	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 	
 	getMarkerList();
 	
 	// Update marker positions every x seconds
-	setInterval(getMarkerList, 1000*60);	
+	setInterval(getMarkerList, 1000 * MARKER_REFRESH_SPEED);	
 }
 
 $(window).resize(function() {
@@ -27,7 +31,7 @@ $(window).resize(function() {
 });
 
 function resizeMap(){
-	//Sets map to be full screen.
+	// resize map to be full screen.
 	 $("#map-canvas").height($(window).height());
 }
 
@@ -39,52 +43,59 @@ function resetBounds(){
 	}
 	map.fitBounds(bounds);
 }
+
 function getMarkerList() {
 
-	if(((new Date().getTime() / 1000)-timeOfLastRefresh)<59){
+	if(isTooSoon()){
 		console.log("too soon");
 	}
-		else{
-			console.log("sending AJAX");
-			var searchUrl = '../getMarkers.php';
+	else{
+		console.log("sending AJAX");
+		var searchUrl = '../getMarkers.php';
 
 		$.ajax({
-			  type: "GET",
-			  url: searchUrl,
-			  data: {secret:"Britta"},
-			  timeout: 48000,
-			  success:  function(data) {
+			 type: "GET",
+			 url: searchUrl,
+			 data: {secret: SERVER_SECRET},
+			 timeout: 48000,
+			 success:  function(data) {
 				console.log('got markers!');
-			  timeOfLastRefresh = (new Date().getTime() / 1000);
+				timeOfLastRefresh = (new Date().getTime() / 1000);
 
 				var markerString = unescape(decodeURIComponent(unescape(decodeURIComponent(data.markers))));
 				var tmpMarkers =  jQuery.parseJSON(markerString );
 				 
 				if(tmpMarkers.length<=0){
-				  console.log('fallback to fake data');
-				  fakeData();
+				  console.log('succesful response, but no markers length is 0.');
 				}
 				else{	
-					clearLocations();				
-					for(var i=0;i<tmpMarkers.length;i++){
+					clearMarkers();				
+					for(var i=0; i < tmpMarkers.length; i++){
 					  var mp=tmpMarkers[i].replace(/\\"/g, "\""); //unescape() wasn't working nor was dec
 					  createMarker(jQuery.parseJSON(mp),i);
 					}						  
 				}
 
-				if(!haveSetBounds){
+				if(firstMarkerSuccess){
 					resetBounds();
-					haveSetBounds=true;
+					firstMarkerSuccess = false;
 				}
 				console.log(data);		  
-			  },
-			  error: function(request, errorType, errorMessage) {
-				timeOfLastRefresh = (new Date().getTime() / 1000);
-				console.log('error: '+errorMessage);
-			   },
-			  dataType: "json"
-			});
-		}
+		  },
+		  error: function(request, errorType, errorMessage) {
+			timeOfLastRefresh = (new Date().getTime() / 1000);
+			console.log('error: ' + errorMessage);
+		   },
+		  dataType: "json"
+		});
+	}
+}
+
+//TODO - test if this function is still necessary. 
+// Was developed when I had a setInterval bug that caused too many calls.
+function isTooSoon(){
+	var timeSinceLastRefresh = (new Date().getTime() / 1000);
+	return (timeSinceLastRefresh-timeOfLastRefresh) < (MARKER_REFRESH_SPEED-1);
 }
 
 function createMarker( info,  index) {
@@ -108,7 +119,7 @@ function createMarker( info,  index) {
 }
 
 
-function clearLocations() {
+function clearMarkers() {
 	for ( var i = 0; i < markers.length; i++) {
 		markers[i].setMap(null);
 	}
