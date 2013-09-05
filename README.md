@@ -72,7 +72,8 @@ TODOs
 * App: Factor out GPS specific code into its own object.
 * Server: Add MySQL import for creating schema.
 * createUsers.php: shouldn't run if we already have 110 users.
-
+* Passcode security was not a top priority for this app, they are predictable and vulnerable. If passcode security is concern rewrite the passcode generation section.
+* Some developers claim that if PHP responds it should always be success, and ajax error should just be for 404's etc. Research and adjust code accordingly.
 
 
 
