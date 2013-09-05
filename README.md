@@ -45,21 +45,13 @@ Allow update GPS in background
 Once you have performed 'phonegap build ios', Open the resources subfolder in xcode, click the .plist file, add a new row, Type 'Required background modes', in the first index select 'App registers for location updates'.
 
 
-TODOs
-=====
-
-* Factor out GPS specific code into its own object.
-* Add MySQL import for creating schema.
-
-
-
 Server Code
 ===========
 
-* map.html and map.js: Map website to view users
-* createUsers.php: onetime use for creating 100 user accounts with unique int passcodes
-* submit.php: for accepting gps updates and adding them to database
-* getMarkers.php code for getting latest GPS update for each user, returns json
+* /Map/..: Map website to view users
+* /createUsers.php: onetime use for creating 100 user accounts with unique int passcodes
+* /submit.php: for accepting gps updates and adding them to database
+* /getMarkers.php code for getting latest GPS update for each user, returns json
 
 
 Server Setup
@@ -74,8 +66,12 @@ Step 6: Check phpmyadmin to see some of the passcodes, try them on the app.
 
 
 
+TODOs
+=====
 
-
+* App: Factor out GPS specific code into its own object.
+* Server: Add MySQL import for creating schema.
+* createUsers.php: shouldn't run if we already have 110 users.
 
 
 
