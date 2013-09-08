@@ -3,11 +3,12 @@ var SERVER_SECRET = 'Britta';	// must match config.php not super secure, but pre
 
 var map;		
 var markers = [];
-var firstMarkerSuccess = true; //only set bounds on first success
+var haveSetBounds = false; 
 var timeOfLastRefresh = (new Date().getTime() / 1000) - MARKER_REFRESH_SPEED;
 	
 function initializeMap() {
 	geocoder = new google.maps.Geocoder();
+	
 	var mapOptions = {
 		center : new google.maps.LatLng(45.427900, -75.672507),
 		zoom : 13,
@@ -26,77 +27,48 @@ function initializeMap() {
 	setInterval(getMarkerList, 1000 * MARKER_REFRESH_SPEED);	
 }
 
-$(window).resize(function() {
-	resizeMap();
-});
-
-function resizeMap(){
-	// resize map to be full screen.
-	 $("#map-canvas").height($(window).height());
-}
-
-
-function resetBounds(){
-	var bounds = new google.maps.LatLngBounds();			
-	for ( var i = 0; i < markers.length; i++) {
-		bounds.extend(markers[i].position);
-	}
-	map.fitBounds(bounds);
-}
 
 function getMarkerList() {
 
-	if(isTooSoon()){
-		console.log("too soon");
-	}
-	else{
-		console.log("sending AJAX");
-		var searchUrl = '../getMarkers.php';
+	console.log("sending AJAX");
+	var searchUrl = '../getMarkers.php';
 
-		$.ajax({
-			 type: "GET",
-			 url: searchUrl,
-			 data: {secret: SERVER_SECRET},
-			 timeout: 48000,
-			 success:  function(data) {
-				console.log('got markers!');
-				timeOfLastRefresh = (new Date().getTime() / 1000);
-
-				var markerString = unescape(decodeURIComponent(unescape(decodeURIComponent(data.markers))));
-				var tmpMarkers =  jQuery.parseJSON(markerString );
-				 
-				if(tmpMarkers.length<=0){
-				  console.log('succesful response, but no markers length is 0.');
-				}
-				else{	
-					clearMarkers();				
-					for(var i=0; i < tmpMarkers.length; i++){
-					  var mp=tmpMarkers[i].replace(/\\"/g, "\""); //unescape() wasn't working nor was dec
-					  createMarker(jQuery.parseJSON(mp),i);
-					}						  
-				}
-
-				if(firstMarkerSuccess){
-					resetBounds();
-					firstMarkerSuccess = false;
-				}
-				console.log(data);		  
-		  },
-		  error: function(request, errorType, errorMessage) {
+	$.ajax({
+		 type: "GET",
+		 url: searchUrl,
+		 data: {secret: SERVER_SECRET},
+		 timeout: 48000,
+		 success:  function(data) {
+			console.log('got markers!');
 			timeOfLastRefresh = (new Date().getTime() / 1000);
-			console.log('error: ' + errorMessage);
-		   },
-		  dataType: "json"
-		});
-	}
+
+			var markerString = unescape(decodeURIComponent(unescape(decodeURIComponent(data.markers))));
+			var tmpMarkers =  jQuery.parseJSON(markerString );
+			 
+			if(tmpMarkers.length<=0){
+			  console.log('succesful response, but no markers length is 0.');
+			}
+			else{	
+				clearMarkers();				
+				for(var i=0; i < tmpMarkers.length; i++){
+				  var mp=tmpMarkers[i].replace(/\\"/g, "\""); //unescape() wasn't working nor was dec
+				  createMarker(jQuery.parseJSON(mp),i);
+				}						  
+			}
+
+			if(!haveSetBounds){
+				resetBounds();
+			}
+			console.log(data);		  
+	  },
+	  error: function(request, errorType, errorMessage) {
+		timeOfLastRefresh = (new Date().getTime() / 1000);
+		console.log('error: ' + errorMessage);
+	   },
+	  dataType: "json"
+	});
 }
 
-//TODO - test if this function is still necessary. 
-// Was developed when I had a setInterval bug that caused too many calls.
-function isTooSoon(){
-	var timeSinceLastRefresh = (new Date().getTime() / 1000);
-	return (timeSinceLastRefresh-timeOfLastRefresh) < (MARKER_REFRESH_SPEED-1);
-}
 
 function createMarker( info,  index) {
 
@@ -118,10 +90,28 @@ function createMarker( info,  index) {
 	markers.push(marker);		
 }
 
-
 function clearMarkers() {
 	for ( var i = 0; i < markers.length; i++) {
 		markers[i].setMap(null);
 	}
 	markers.length = 0;
 }
+
+function resizeMap(){
+	// resize map to be full screen.
+	 $("#map-canvas").height($(window).height());
+}
+
+
+function resetBounds(){
+	var bounds = new google.maps.LatLngBounds();			
+	for ( var i = 0; i < markers.length; i++) {
+		bounds.extend(markers[i].position);
+	}
+	map.fitBounds(bounds);
+	haveSetBounds = true;
+}
+
+$(window).resize(function() {
+	resizeMap();
+});
