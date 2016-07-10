@@ -1,3 +1,6 @@
+** Please use the GitHub 'Issues' if you have problems and send pull requests. I no longer actively maintain the code, but many people are still using it **
+===========================
+
 Phonegap 3.0 Background Location App
 ====================================
 
